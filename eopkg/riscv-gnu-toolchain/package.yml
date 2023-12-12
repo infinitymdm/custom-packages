@@ -1,0 +1,24 @@
+name       : riscv-gnu-toolchain
+version    : 2023.03.14
+release    : 0
+source     :
+    - git|https://github.com/riscv-collab/riscv-gnu-toolchain.git : 2023.03.14
+license    :
+    - GPL-2.0-or-later
+component  : system.devel
+summary    : GNU toolchain for RISC-V
+description: |
+    GNU toolchain for RISC-V, including GCC
+builddeps  :
+    - pkgconfig(gmp)
+    - pkgconfig(mpfr)
+    - mpc-devel
+setup      : |
+    %configure \
+        --enable-multilib \
+        --prefix=$installdir/usr/share/riscv
+build      : |
+    %make
+install    : |
+    install -dm00755 $installdir/usr/bin
+    ln -s /usr/share/riscv/bin/* $installdir/usr/bin/.

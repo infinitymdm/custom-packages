@@ -1,0 +1,24 @@
+name       : riscv-spike
+version    : 1.1.0
+release    : 0
+source     :
+    - git|https://github.com/riscv-software-src/riscv-isa-sim.git : v1.1.0
+license    :
+    - BSD-4-Clause-UC
+component  : system.devel
+summary    : A RISC-V ISA Simulator
+description: |
+    Spike, the RISC-V ISA Simulator, implements a functional model of one or more RISC-V harts. It is named after the golden spike used to celebrate the completion of the US transcontinental railway.
+builddeps  :
+    - riscv-gnu-toolchain
+    - dtc-devel
+rundeps    :
+    - riscv-gnu-toolchain
+    - dtc
+build      : |
+    %configure --prefix=/usr/share/riscv
+    %make
+install    : |
+    %make_install
+    install -dm00755 $installdir/usr/bin
+    ln -s /usr/share/riscv/bin/* $installdir/usr/bin/.
