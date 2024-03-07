@@ -3,17 +3,17 @@ version    : 20.08.00.00
 release    : 0
 source     :
     - git|https://github.com/sifive/elf2hex.git : v20.08.00.00
-license    :
-    - GPL-2.0-or-later
+license    : GPL-2.0-or-later
 component  : system.devel
-summary    : GNU toolchain for RISC-V, including GCC
+summary    : Converts ELF files to HEX files that are suitable for Verilog's readmemh
 description: |
-    GNU toolchain for RISC-V, including GCC
+    Converts ELF files to HEX files that are suitable for Verilog's readmemh.
 builddeps  :
     - riscv-gnu-toolchain
+rundeps    :
+    - riscv-gnu-toolchain
 setup      : |
-    autoreconf -i
-    %configure --target=riscv64-unknown-elf
+    %reconfigure --target=riscv64-unknown-elf
 build      : |
     %make
 install    : |

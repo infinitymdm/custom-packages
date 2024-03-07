@@ -2,23 +2,23 @@ name       : riscv-spike
 version    : 1.1.0
 release    : 0
 source     :
-    - git|https://github.com/riscv-software-src/riscv-isa-sim.git : v1.1.0
-license    :
-    - BSD-4-Clause-UC
-component  : system.devel
-summary    : A RISC-V ISA Simulator
+    - https://github.com/riscv-software-src/riscv-isa-sim/archive/refs/tags/v1.1.0.tar.gz : 9b29c220fed1e867e3bea4b5c565f2629237d525a4d9fe1668699c4406003a1f
+homepage   : https://riscv.org
+license    : BSD-3-Clause
+component  : programming.tools
+summary    : Spike, a RISC-V ISA Simulator 
 description: |
     Spike, the RISC-V ISA Simulator, implements a functional model of one or more RISC-V harts. It is named after the golden spike used to celebrate the completion of the US transcontinental railway.
 builddeps  :
+    - pkgconfig(libfdt)
+    - libboost-devel
     - riscv-gnu-toolchain
-    - dtc-devel
 rundeps    :
     - riscv-gnu-toolchain
-    - dtc
+setup      : |
+    %configure --prefix=/usr
+    sed -i "9i #include <stdint.h>" fesvr/device.h
 build      : |
-    %configure --prefix=/usr/share/riscv
     %make
 install    : |
     %make_install
-    install -dm00755 $installdir/usr/bin
-    ln -s /usr/share/riscv/bin/* $installdir/usr/bin/.
